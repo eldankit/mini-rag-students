@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "mini-rag-backend"
+version = "0.1.0"
+description = "A minimal FastAPI backend for the mini-rag-system."
+authors = ["Eldan Kitai <eldan@example.com>"]
+packages = [
+    { include = "app" }
+]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.13"
+fastapi = "^0.111.0"
+uvicorn = "^0.30.0"
+pydantic = "^2.7.1"
+pydantic-settings = "^2.2.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api" 
