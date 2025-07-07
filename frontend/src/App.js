@@ -8,9 +8,12 @@ function App() {
   const [backendStatus, setBackendStatus] = useState('checking');
   const [isConnected, setIsConnected] = useState(false);
 
+  // Use localhost for browser requests (Docker exposes backend on localhost:8000)
+  const backendUrl = 'http://localhost:8000';
+
   useEffect(() => {
     // Check backend connection
-    fetch('http://localhost:8000/api/ping')
+    fetch(`${backendUrl}/api/ping`)
       .then(response => response.json())
       .then(data => {
         setBackendStatus('connected');
@@ -20,7 +23,7 @@ function App() {
         setBackendStatus('disconnected');
         setIsConnected(false);
       });
-  }, []);
+  }, [backendUrl]);
 
   // Set document direction based on language
   useEffect(() => {

@@ -24,8 +24,9 @@ a mini rag system to help students learn by asking on their course materials
 - **Smooth Animations**: Hover effects and transitions
 
 ### 🔧 Technical Features
-- **Real-time Status**: Live backend connection indicator
+- **Real-time Status**: Live backend connection indicator with automatic health checks
 - **API Integration**: Seamless communication between frontend and backend
+- **CORS Configuration**: Properly configured for cross-origin requests
 - **Docker Ready**: Full containerization for easy deployment
 - **Development Mode**: Hot reload for both frontend and backend
 
@@ -45,6 +46,8 @@ docker-compose up --build
 This will start both services:
 - **Frontend**: Available at [http://localhost:3000](http://localhost:3000)
 - **Backend**: Available at [http://localhost:8000](http://localhost:8000)
+
+The frontend will automatically connect to the backend and display the connection status.
 
 ### Development Setup
 
@@ -141,12 +144,29 @@ This will start both services:
 2. **Port Conflicts**: Ensure ports 3000 and 8000 are available
 3. **Docker Build Issues**: Clear Docker cache with `docker system prune -a`
 
+### Backend Connection Issues
+
+**Problem**: Frontend shows "Backend: Disconnected" even when backend is running
+
+**Solution**: This was a common issue where the frontend was trying to connect to the Docker service name instead of localhost. The fix has been implemented:
+
+1. **Frontend URL Configuration**: The React app now uses `http://localhost:8000` for browser requests
+2. **CORS Configuration**: Backend includes proper CORS middleware to allow frontend requests
+3. **Health Check**: Frontend automatically checks backend status on load
+
+**If you still see connection issues**:
+1. Ensure both containers are running: `docker-compose ps`
+2. Check backend logs: `docker-compose logs backend`
+3. Test backend directly: `curl http://localhost:8000/api/ping`
+4. Rebuild containers: `docker-compose down && docker-compose up --build`
+
 ### Development Tips
 
 - Use `npm install --legacy-peer-deps` for frontend dependency installation
 - The frontend automatically connects to the backend on localhost:8000
 - Language preferences are saved in browser localStorage
 - RTL layout automatically activates for Hebrew
+- Backend connection status is displayed in real-time on the frontend
 
 ---
 
