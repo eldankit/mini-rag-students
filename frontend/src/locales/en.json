@@ -1,0 +1,36 @@
+{
+  "header": {
+    "title": "🎓 Mini RAG System",
+    "subtitle": "Learn smarter with AI-powered course material assistance"
+  },
+  "status": {
+    "title": "System Status",
+    "connected": "Connected",
+    "disconnected": "Disconnected",
+    "checking": "Checking..."
+  },
+  "features": {
+    "upload": {
+      "title": "📚 Upload Materials",
+      "description": "Upload your course materials, notes, and documents",
+      "button": "Upload Files"
+    },
+    "chat": {
+      "title": "❓ Ask Questions",
+      "description": "Ask questions about your course content and get instant answers",
+      "button": "Start Chat"
+    },
+    "analytics": {
+      "title": "📊 Study Analytics",
+      "description": "Track your learning progress and identify knowledge gaps",
+      "button": "View Analytics"
+    }
+  },
+  "footer": {
+    "text": "Built with React + FastAPI • Mini RAG System for Students"
+  },
+  "language": {
+    "en": "English",
+    "he": "עברית"
+  }
+} 

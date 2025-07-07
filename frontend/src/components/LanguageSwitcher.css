@@ -1,0 +1,38 @@
+.language-switcher {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.lang-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+}
+
+.lang-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.lang-btn.active {
+  background: rgba(255, 255, 255, 0.4);
+  border-color: rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+}
+
+/* RTL support for Hebrew */
+[dir="rtl"] .language-switcher {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .lang-btn {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+} 
