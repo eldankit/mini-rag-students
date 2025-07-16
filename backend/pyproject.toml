@@ -14,8 +14,26 @@ uvicorn = "^0.30.0"
 pydantic = "^2.7.1"
 pydantic-settings = "^2.2.1"
 python-dotenv = "^1.0.1"
+# File upload and processing
+python-multipart = "^0.0.9"
+aiofiles = "^24.1.0"
+python-magic = "^0.4.27"
+# Document parsing
+pypdf2 = "^3.0.1"
+python-docx = "^1.1.2"
+python-pptx = "^0.6.23"
+# Storage (S3-compatible, works with MinIO)
+boto3 = "^1.35.0"
+# Vector database
+chromadb = "^0.4.24"
+# Document processing and chunking
+langchain = "^0.2.0"
+langchain-community = "^0.2.0"
+langchain-text-splitters = "^0.2.0"
+# Text processing
+tiktoken = "^0.6.0"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
