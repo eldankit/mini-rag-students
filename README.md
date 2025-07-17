@@ -8,6 +8,13 @@ a mini rag system to help students learn by asking on their course materials
 - `frontend/` — React frontend with i18n support (JavaScript, Create React App, Docker-ready)
 - `docker-compose.yml` — Orchestrates both frontend and backend services
 
+## How it Works
+
+- **Upload**: Students upload course materials (PDF, DOCX, PPTX, TXT)
+- **Processing**: Backend extracts text, chunks it, and generates vector embeddings
+- **Storage**: Files are stored in MinIO (object storage); embeddings in ChromaDB (vector DB)
+- **Search**: Students ask questions in English or Hebrew; the system performs cross-language semantic search and returns relevant content
+
 ## Features
 
 ### 🌍 Internationalization (i18n)
@@ -24,6 +31,11 @@ a mini rag system to help students learn by asking on their course materials
 - **Smooth Animations**: Hover effects and transitions
 
 ### 🔧 Technical Features
+- **MinIO Object Storage**: All uploaded files are stored in MinIO for scalability and reliability
+- **ChromaDB Vector Database**: All document embeddings are stored in ChromaDB for fast semantic search
+- **Document Processing Pipeline**: Supports PDF, DOCX, PPTX, and TXT; extracts, chunks, and embeds text
+- **Multilingual Semantic Search**: Search in English or Hebrew and retrieve relevant content in either language
+- **Cross-language Retrieval**: Ask in one language, find answers in another
 - **Real-time Status**: Live backend connection indicator with automatic health checks
 - **API Integration**: Seamless communication between frontend and backend
 - **CORS Configuration**: Properly configured for cross-origin requests
@@ -115,14 +127,14 @@ The frontend will automatically connect to the backend and display the connectio
 
 - `GET /` - Welcome message
 - `GET /api/ping` - Health check endpoint
-- `POST /api/files/upload` - Upload and process files
+- `POST /api/files/upload` - Upload and process files (PDF, DOCX, PPTX, TXT)
 - `GET /api/files/list` - List all uploaded files
-- `GET /api/files/download/{filename}` - Download file directly
-- `DELETE /api/files/files/{filename}` - Delete file from storage
+- `GET /api/files/download/{file_id}` - Download file directly by file ID
+- `DELETE /api/files/files/{file_id}` - Delete file from storage by file ID
 - `GET /api/files/collection-info` - Get vector database collection info
 - `GET /api/files/documents` - List vectorized documents
-- `POST /api/files/search` - Semantic search across documents
-- `DELETE /api/files/documents` - Delete documents from vector database
+- `POST /api/files/search` - Semantic search across documents (cross-language)
+- `DELETE /api/files/documents/{doc_id}` - Delete document from vector database by document ID
 
 ## Docker Configuration
 
@@ -130,6 +142,7 @@ The frontend will automatically connect to the backend and display the connectio
 - Python 3.11 with Poetry
 - FastAPI with Uvicorn
 - Production-ready configuration
+- MinIO and ChromaDB integration
 
 ### Frontend Dockerfile
 - Node.js 18 with multi-stage build
@@ -140,14 +153,13 @@ The frontend will automatically connect to the backend and display the connectio
 - Network isolation between services
 - Environment variable configuration
 - Health checks and restart policies
+- MinIO and ChromaDB as microservices
 
 ## Future Enhancements
 
-- File upload functionality
 - Chat interface for Q&A
 - Study analytics dashboard
 - User authentication
-- Document processing and indexing
 - Additional language support (Arabic, Spanish, etc.)
 
 ## Troubleshooting
