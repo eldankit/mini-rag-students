@@ -105,10 +105,24 @@ The frontend will automatically connect to the backend and display the connectio
 }
 ```
 
+## Documentation
+
+- **[Complete Documentation](DOCUMENTATION.md)** - Comprehensive system documentation
+- **[API Quick Reference](API_QUICK_REFERENCE.md)** - Fast API endpoint reference
+- **[Changelog](CHANGELOG.md)** - Version history and changes
+
 ## API Endpoints
 
 - `GET /` - Welcome message
 - `GET /api/ping` - Health check endpoint
+- `POST /api/files/upload` - Upload and process files
+- `GET /api/files/list` - List all uploaded files
+- `GET /api/files/download/{filename}` - Download file directly
+- `DELETE /api/files/files/{filename}` - Delete file from storage
+- `GET /api/files/collection-info` - Get vector database collection info
+- `GET /api/files/documents` - List vectorized documents
+- `POST /api/files/search` - Semantic search across documents
+- `DELETE /api/files/documents` - Delete documents from vector database
 
 ## Docker Configuration
 

@@ -29,7 +29,7 @@ services:
       - rag-network
 
   chromadb:
-    image: chromadb/chroma:latest
+    image: chromadb/chroma:0.4.15
     container_name: mini-rag-chromadb
     ports:
       - "8001:8000"  # ChromaDB API (mapped to host port 8001)
