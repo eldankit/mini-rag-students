@@ -161,14 +161,32 @@ async def delete_documents(request: DeleteRequest):
 @router.delete("/files/{filename}")
 async def delete_file(filename: str):
     """
-    Delete a file from storage
+    Delete a file from storage and its corresponding document chunks from vector database
     """
     try:
+        # First, get the document IDs for this file from the vector database
+        documents = await vector_service.list_documents(limit=1000)  # Get all documents
+        file_document_ids = [
+            doc['id'] for doc in documents 
+            if doc.get('metadata', {}).get('filename') == filename
+        ]
+        
+        # Delete file from storage
         success = await storage_service.delete_file(filename)
-        if success:
-            return {"message": f"File {filename} deleted successfully"}
-        else:
+        if not success:
             raise HTTPException(status_code=404, detail=f"File {filename} not found")
+        
+        # Delete corresponding document chunks from vector database
+        if file_document_ids:
+            await vector_service.delete_documents(file_document_ids)
+            return {
+                "message": f"File {filename} and {len(file_document_ids)} document chunks deleted successfully"
+            }
+        else:
+            return {"message": f"File {filename} deleted successfully (no document chunks found)"}
+            
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to delete file: {str(e)}")
 

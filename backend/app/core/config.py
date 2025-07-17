@@ -5,15 +5,15 @@ class Settings(BaseSettings):
     debug: bool = True
     
     # MinIO Configuration
-    minio_endpoint: str = "localhost:9000"
+    minio_endpoint: str = "minio:9000"  # Use Docker service name
     minio_access_key: str = "minioadmin"
     minio_secret_key: str = "minioadmin123"
     minio_bucket_name: str = "documents"
     minio_secure: bool = False  # Set to True for HTTPS
     
     # ChromaDB Configuration
-    chromadb_host: str = "localhost"
-    chromadb_port: int = 8001
+    chromadb_host: str = "chromadb"  # Use Docker service name
+    chromadb_port: int = 8000  # Use internal port
     chromadb_collection_name: str = "documents"
     chromadb_tenant: str = "default_tenant"
     chromadb_database: str = "default_database"
