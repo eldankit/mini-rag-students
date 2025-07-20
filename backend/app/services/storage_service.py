@@ -31,12 +31,16 @@ class StorageService:
             # Read file content first
             file_content = await file.read()
             
-            # Upload file using bytes
+            # Upload file using bytes with metadata
             self.s3_client.put_object(
                 Bucket=self.bucket_name,
                 Key=unique_filename,
                 Body=file_content,
-                ContentType=file.content_type
+                ContentType=file.content_type,
+                Metadata={
+                    'x-amz-meta-original-filename': file.filename,
+                    'x-amz-meta-uploaded-at': datetime.utcnow().isoformat()
+                }
             )
             
             return {
@@ -98,16 +102,22 @@ class StorageService:
             
             if 'Contents' in response:
                 for obj in response['Contents']:
-                    # Try to get object metadata for content type
+                    # Get object metadata including original filename
                     try:
                         head_response = self.s3_client.head_object(Bucket=self.bucket_name, Key=obj['Key'])
                         content_type = head_response.get('ContentType', 'application/octet-stream')
-                    except:
+                        
+                        # Get original filename from metadata, fallback to UUID filename if not found
+                        metadata = head_response.get('Metadata', {})
+                        original_filename = metadata.get('x-amz-meta-original-filename', obj['Key'])
+                        
+                    except Exception as e:
                         content_type = 'application/octet-stream'
+                        original_filename = obj['Key']  # Fallback to UUID filename
                     
                     files.append({
                         "filename": obj['Key'],
-                        "original_filename": obj['Key'],  # For now, use filename as original
+                        "original_filename": original_filename,
                         "size": obj['Size'],
                         "last_modified": obj['LastModified'].isoformat(),
                         "content_type": content_type
